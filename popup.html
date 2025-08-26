@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* Review Assist Extension Popup Styles */
+        body {
+            width: 450px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select, textarea, button, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        /* Button styling */
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            flex: 1;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            padding: 8px;
+        }
+
+        #addBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #deleteBtn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #showTrackerBtn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #setupBtn {
+            background-color: #17a2b8;
+            color: white;
+            width: 100px;
+        }
+
+        .top-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #showTrackerBtn {
+            flex: 1;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Status messaging */
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Saved words display */
+        .saved-words {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .category-group {
+            margin-bottom: 10px;
+        }
+
+        .category-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .word-list {
+            margin-left: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Setup view styling */
+        .setup-view {
+            display: none;
+        }
+
+        .setup-section {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .setup-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .current-config {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .config-item {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main View -->
+    <div id="mainView">
+        <h2>Word Category Settings by Parinitg</h2>
+        
+        <div class="top-buttons">
+            <button id="showTrackerBtn">Show Caption Assist</button>
+            <button id="setupBtn">Setup</button>
+        </div>
+        
+        <div class="form-group">
+            <label for="wordInput">Words (separate with commas):</label>
+            <textarea id="wordInput" placeholder="Enter words separated by commas (e.g., word1, word2, word3)"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="mrSelect">MR Category:</label>
+            <select id="mrSelect">
+                <option value="U">U</option>
+                <option value="PG">PG</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+                <option value="18">18</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="cdSelect">CD Category:</label>
+            <select id="cdSelect">
+                <option value="Language">Language</option>
+                <option value="Discrimination">Discrimination</option>
+                <option value="Sex references">Sex references</option>
+                <option value="Sexual violence">Sexual violence</option>
+                <option value="Drugs">Drugs</option>
+                <option value="Racial language">Racial language</option>
+            </select>
+        </div>
+        
+        <div class="button-group">
+            <button id="addBtn">Add Words</button>
+            <button id="deleteBtn">Delete Words</button>
+        </div>
+        
+        <div id="status"></div>
+        
+        <div class="saved-words" id="savedWords">
+            <div style="text-align: center; color: #666;">Loading saved words...</div>
+        </div>
+    </div>
+
+    <!-- Setup View -->
+    <div id="setupView" class="setup-view">
+        <button id="backBtn" class="back-btn">← Back</button>
+        <h2>Extension Setup</h2>
+        
+        <div class="setup-section">
+            <h3>🕒 Timestamp Copy Feature</h3>
+            <div class="form-group">
+                <label for="timestampUrl">Webpage URL (use * for wildcards):</label>
+                <input type="text" id="timestampUrl" placeholder="e.g., *://example.com/* or https://specific-site.com/path/*">
+            </div>
+            <div class="form-group">
+                <label for="timestampElement">Element selector (class/id):</label>
+                <input type="text" id="timestampElement" placeholder="e.g., .vjs-current-time-display or div.time#current or #timestamp">
+            </div>
+            <button id="saveTimestampBtn" style="background-color: #28a745; color: white;">Save Timestamp Config</button>
+        </div>
+        
+        <div class="setup-section">
+            <h3>🔍 Word Tracker Feature</h3>
+            <div class="form-group">
+                <label for="captionUrl">Webpage URL (use * for wildcards):</label>
+                <input type="text" id="captionUrl" placeholder="e.g., *://example.com/* or https://caption-site.com/*">
+            </div>
+            <div class="form-group">
+                <label for="captionElement">Caption content element selector:</label>
+                <input type="text" id="captionElement" placeholder="e.g., .panel-body#full-caps or div.captions or #caption-content">
+            </div>
+            <button id="saveCaptionBtn" style="background-color: #28a745; color: white;">Save Caption Config</button>
+        </div>
+
+        <div class="current-config" id="currentConfig">
+            <strong>Current Configuration:</strong>
+            <div id="configDisplay">Loading...</div>
+        </div>
+        
+        <div id="setupStatus"></div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
