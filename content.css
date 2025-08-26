@@ -1,0 +1,211 @@
+/* Review Assist Extension Styles */
+/* Clean, optimized styles for floating windows and timestamp button */
+
+/* Main floating window container */
+.word-tracker-floating {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    max-width: 800px;
+    max-height: 600px;
+    overflow: auto;
+    min-width: 300px;
+}
+
+/* Header styling */
+.word-tracker-header {
+    background: #333;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+}
+
+.word-tracker-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Close button styling */
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Content area styling */
+.word-tracker-content {
+    padding: 15px;
+}
+
+/* Results table styling */
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.results-table th,
+.results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.results-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* MR category row colors */
+.results-table tbody tr th:first-child {
+    color: white;
+    font-weight: bold;
+}
+
+/* Keep header row normal */
+.results-table thead tr th:first-child {
+    background-color: #f2f2f2 !important;
+    color: black !important;
+}
+
+/* U rating - Green */
+.results-table tbody tr:nth-child(1) th:first-child {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+
+/* PG rating - Yellow */
+.results-table tbody tr:nth-child(2) th:first-child {
+    background-color: #ffc107 !important;
+    color: black !important;
+}
+
+/* 12 rating - Orange */
+.results-table tbody tr:nth-child(3) th:first-child {
+    background-color: #fd7e14 !important;
+    color: white !important;
+}
+
+/* 15 rating - Purple */
+.results-table tbody tr:nth-child(4) th:first-child {
+    background-color: #6f42c1 !important;
+    color: white !important;
+}
+
+/* 18 rating - Red */
+.results-table tbody tr:nth-child(5) th:first-child {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+/* Table row styling */
+.results-table tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}
+
+.results-table tr:hover td {
+    background-color: #f5f5f5;
+}
+
+.results-table td {
+    min-width: 120px;
+    font-size: 12px;
+}
+
+/* Empty cell placeholder */
+.results-table td:empty::after {
+    content: "-";
+    color: #ccc;
+}
+
+/* Timestamp copy button styling */
+.timestamp-copy-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: grab;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    z-index: 2147483647;
+    transition: all 0.3s ease;
+    user-select: none;
+    font-family: Arial, sans-serif;
+}
+
+.timestamp-copy-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+.timestamp-copy-btn:active {
+    transform: translateY(0);
+}
+
+.timestamp-copy-btn.copied {
+    background: #28a745;
+}
+
+.timestamp-copy-btn.copied:hover {
+    background: #1e7e34;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 900px) {
+    .word-tracker-floating {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .results-table {
+        font-size: 11px;
+    }
+    
+    .results-table th,
+    .results-table td {
+        padding: 6px;
+    }
+}
+
+/* Header icon image styling */
+.header-icon-img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
